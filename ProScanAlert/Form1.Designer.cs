@@ -107,9 +107,9 @@
             // 
             // btRetrieveSystems
             // 
-            this.btRetrieveSystems.Location = new System.Drawing.Point(227, 267);
+            this.btRetrieveSystems.Location = new System.Drawing.Point(325, 229);
             this.btRetrieveSystems.Name = "btRetrieveSystems";
-            this.btRetrieveSystems.Size = new System.Drawing.Size(89, 23);
+            this.btRetrieveSystems.Size = new System.Drawing.Size(139, 32);
             this.btRetrieveSystems.TabIndex = 9;
             this.btRetrieveSystems.Text = "Get Database";
             this.btRetrieveSystems.UseVisualStyleBackColor = true;
@@ -197,7 +197,7 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 299);
+            this.listBox1.Location = new System.Drawing.Point(12, 370);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(452, 95);
             this.listBox1.TabIndex = 17;
@@ -223,9 +223,9 @@
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.HorizontalScrollbar = true;
-            this.listBox2.Location = new System.Drawing.Point(322, 168);
+            this.listBox2.Location = new System.Drawing.Point(12, 268);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(142, 121);
+            this.listBox2.Size = new System.Drawing.Size(452, 95);
             this.listBox2.TabIndex = 21;
             // 
             // tbMins
@@ -264,9 +264,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 266);
+            this.button1.Location = new System.Drawing.Point(155, 49);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(40, 23);
             this.button1.TabIndex = 8;
             this.button1.Text = "Test";
             this.button1.UseVisualStyleBackColor = true;
@@ -276,7 +276,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 402);
+            this.ClientSize = new System.Drawing.Size(476, 477);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbSecs);
             this.Controls.Add(this.label6);
@@ -305,7 +305,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ProScanAlert 0.1.7";
+            this.Text = "ProScanAlert 0.1.9";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

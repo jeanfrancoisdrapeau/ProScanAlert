@@ -137,7 +137,7 @@ namespace ProScanAlert
 
                     long secsTotal = result.Sum(span => span.secs);
 
-                    listBox2.Invoke((MethodInvoker)(() => listBox2.Items.Add(string.Format("{0}: {1}s", sysgrp.sys, secsTotal))));
+                    listBox2.Invoke((MethodInvoker)(() => listBox2.Items.Add(string.Format("{0}-{1}: {2}s", sysgrp.sys, sysgrp.grp, secsTotal))));
                 }
             }
             else { listBox2.Invoke((MethodInvoker)(() => listBox2.Items.Clear())); }
@@ -247,11 +247,11 @@ namespace ProScanAlert
                                     listBox1.Items.Add(string.Format("{0} (ALERT) Sending ALERTS for {1}", 
                                     DateTime.Now, s))));
                                 listBox1.Invoke((MethodInvoker)(() => listBox1.TopIndex = listBox1.Items.Count - 1));
-                                SendNotification(string.Format("High activity detected\n{1}\n{2}\n{3}\n{0}\nTap here to connect.", 
-                                    DateTime.Now,
+                                SendNotification(string.Format("S:{0}\nG:{1}\n{2}\n{3}",
                                     ScannerLog._currentAlert_Sys, 
                                     ScannerLog._currentAlert_Grp,
-                                    tbServerHost.Text), tbServerHost.Text, tbServerPort.Text);
+                                    tbServerHost.Text,
+                                    DateTime.Now), tbServerHost.Text, tbServerPort.Text);
                             }
                         }
                         ScannerLog.CurrentAlert_Alert = false;
@@ -644,11 +644,11 @@ namespace ProScanAlert
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            SendNotification(string.Format("High activity detected\n{1}\n{2}\n{3}\n{0}\nTap here to connect.",
+            SendNotification(string.Format("S:{1}\nG:{2}\n{3}\n{0}",
                                     DateTime.Now,
-                                    "TEST",
-                                    "TEST",
-                                    "TEST"), "eluderwrx.no-ip.info", "5000");
+                                    "System",
+                                    "Group",
+                                    "eluderwrx.no-ip.info"), "eluderwrx.no-ip.info", "5000");
         }
     }
 }

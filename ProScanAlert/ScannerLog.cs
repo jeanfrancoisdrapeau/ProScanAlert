@@ -13,17 +13,12 @@ namespace ProScanAlert
 	{
 		//private const int MIN_SECONDS_BEFORE_ALERT = 30;
 		//private const int MIN_MINUTES_BEFORE_NEXT_ALERT = 30;
+        private DateTime initialDateTime = new DateTime(1970, 1, 1);
 
 		private class messageStruct
 		{
 			public byte[] all_data { get; set; }
 			public int length { get; set; }
-		}
-
-		private class receptionList
-		{
-			public string sys { get; set; }
-			public DateTime time { get; set; }
 		}
 
 		public class logsDetails
@@ -154,7 +149,7 @@ namespace ProScanAlert
 										Item.sys = _lastSys;
 										Item.grp = _lastGrp;
 										Item.alert = false;
-										Item.lastalert = DateTime.Now;
+										Item.lastalert = initialDateTime;
 
 										_log.LogsList.Add(Item);
 									}
@@ -165,52 +160,41 @@ namespace ProScanAlert
 								_lastStart = DateTime.Now;
 							}
 
-							//Console.WriteLine("-- {0} ----------------------------------------", 
-							//	_listLogDetails_Log.Count);
-
-							//foreach (logsDetails ld in _listLogDetails_Log)
-							//{
-								//Console.WriteLine("{0}-{1}: {2}", ld.sys, ld.grp, ld.added);
-							//}
-
-							//Console.WriteLine("-- SUMS:"); 
-
 							// Get unique sys/grp values
-							if (true) {
-								var selectedSysgrp =
-									_listLogDetails_Log.Select(d => new {d.sys, d.grp} ).Distinct();
+							var selectedSysgrp =
+								_listLogDetails_Log.Select(d => new {d.sys, d.grp} ).Distinct();
 
-								foreach (var sysgrp in selectedSysgrp)
-								{
-									var result = _listLogDetails_Log.Where(d => d.sys == sysgrp.sys &&
-										d.grp == sysgrp.grp);
+							foreach (var sysgrp in selectedSysgrp)
+							{
+								var result = _listLogDetails_Log.Where(d => d.sys == sysgrp.sys &&
+									d.grp == sysgrp.grp);
 
-									long secsTotal = result.Sum(span => span.secs);
+								long secsTotal = result.Sum(span => span.secs);
 
-									//Console.WriteLine("{0}-{1}: {2} secs", sysgrp.sys, sysgrp.grp, secsTotal);
+								//Console.WriteLine("{0}-{1}: {2} secs, last: {3}", sysgrp.sys, sysgrp.grp, secsTotal);
 
-									int i = _log.LogsList.FindIndex(l => l.sys == sysgrp.sys &&
-										l.grp == sysgrp.grp);
+								int i = _log.LogsList.FindIndex(l => l.sys == sysgrp.sys &&
+									l.grp == sysgrp.grp);
 
-									if (i != -1) {
-										if (true) {
-                                            int MIN_SECONDS_BEFORE_ALERT;
-                                            int.TryParse(Form1._Secs.Text, out MIN_SECONDS_BEFORE_ALERT);
-											if (secsTotal >= MIN_SECONDS_BEFORE_ALERT) {
-												TimeSpan ts = DateTime.Now - log.LogsList[i].lastalert;
+								if (i != -1) {
 
-                                                int MIN_MINUTES_BEFORE_NEXT_ALERT;
-                                                int.TryParse(Form1._Mins.Text, out MIN_MINUTES_BEFORE_NEXT_ALERT);
-												if (ts.TotalMinutes >= MIN_MINUTES_BEFORE_NEXT_ALERT) {
-													//Console.WriteLine("ALERT!: {0}-{1}", sysgrp.sys, sysgrp.grp);
+                                    //Console.WriteLine("{0}-{1}: {2} secs, last: {3}", sysgrp.sys, sysgrp.grp, secsTotal, _log.LogsList[i].lastalert);
 
-													_currentAlert_Sys = sysgrp.sys;
-													_currentAlert_Grp = sysgrp.grp;
-													_currentAlert_Alert = true;
+                                    int MIN_SECONDS_BEFORE_ALERT;
+                                    int.TryParse(Form1._Secs.Text, out MIN_SECONDS_BEFORE_ALERT);
+									if (secsTotal >= MIN_SECONDS_BEFORE_ALERT) {
+										TimeSpan ts = DateTime.Now - _log.LogsList[i].lastalert;
 
-													log.LogsList[i].lastalert = DateTime.Now;
-												}
-											}
+                                        int MIN_MINUTES_BEFORE_NEXT_ALERT;
+                                        int.TryParse(Form1._Mins.Text, out MIN_MINUTES_BEFORE_NEXT_ALERT);
+										if (ts.TotalMinutes >= MIN_MINUTES_BEFORE_NEXT_ALERT) {
+											//Console.WriteLine("ALERT!: {0}-{1}", sysgrp.sys, sysgrp.grp);
+
+											_currentAlert_Sys = sysgrp.sys;
+											_currentAlert_Grp = sysgrp.grp;
+											_currentAlert_Alert = true;
+
+											_log.LogsList[i].lastalert = DateTime.Now;
 										}
 									}
 								}
